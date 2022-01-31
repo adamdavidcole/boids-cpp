@@ -25,6 +25,8 @@ public:
     void windowResized(int w, int h);
 
     std::vector<Boid *> boids;
+    
+    static const int INITIAL_BOID_COUNT = 250;
 	
     ofxFloatSlider seperationW;
     ofxFloatSlider cohesionW;
@@ -32,7 +34,9 @@ public:
     
     ofxFloatSlider separationThreshold;
     ofxFloatSlider neighbourhoodSize;
-
+    
+    ofxFloatSlider maxSpeed;
+    ofxFloatSlider maxForce;
 
     ofxPanel gui;
     
@@ -41,6 +45,9 @@ public:
     void alignmentWChanged(float & alignmentW);
     void separationThresholdChanged(float &separationThresholdChanged);
     void neighbourhoodSizeChanged(float &neighbourhoodSize);
+    void maxSpeedChanged(float &maxSpeed);
+    void maxForceChanged(float &maxForce);
+
 };
 
 #endif	

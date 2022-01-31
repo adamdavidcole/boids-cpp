@@ -12,36 +12,36 @@
 
 Boid::Boid()
 {
-	separationWeight = 1.0f;
-	cohesionWeight = 0.2f;
-	alignmentWeight = 0.1f;
+	separationWeight = INITIAL_SEPARATION_WEIGHT;
+	cohesionWeight = INITIAL_COHESION_WEIGHT;
+	alignmentWeight = INITIAL_ALIGHNMENT_WEIGHT;
 	
-	separationThreshold = 15;
-	neighbourhoodSize = 100;
+	separationThreshold = INITIAL_SEPARATION_THRESHOLD;
+	neighbourhoodSize = INITIAL_NEIGHBORHOOD_SIZE;
 	
-	position = ofVec3f(ofRandom(0, 200), ofRandom(0, 200));
+	position = ofVec3f(ofRandom(0, ofGetWidth()), ofRandom(0, ofGetHeight()));
 	velocity = ofVec3f(ofRandom(-2, 2), ofRandom(-2, 2));
     acceleration = ofVec3f();
     
-    maxSpeed = 3;
-    maxForce = 0.05;
+    maxSpeed = INITIAL_MAX_SPEED;
+    maxForce = INITIAL_MAX_FORCE;
 }
 
 Boid::Boid(ofVec3f &pos, ofVec3f &vel)
 {
-	separationWeight = 1.0f;
-	cohesionWeight = 0.2f;
-	alignmentWeight = 0.1f;
+    separationWeight = INITIAL_SEPARATION_WEIGHT;
+    cohesionWeight = INITIAL_COHESION_WEIGHT;
+    alignmentWeight = INITIAL_ALIGHNMENT_WEIGHT;
 	
-	separationThreshold = 15;
-	neighbourhoodSize = 100;
+	separationThreshold = INITIAL_SEPARATION_THRESHOLD;
+	neighbourhoodSize = INITIAL_NEIGHBORHOOD_SIZE;
 	
 	position = pos;
 	velocity = vel;
     acceleration = ofVec3f();
     
-    maxSpeed = 3;
-    maxForce = 0.05;
+    maxSpeed = INITIAL_MAX_SPEED;
+    maxForce = INITIAL_MAX_FORCE;
 }
 
 Boid::~Boid()
@@ -100,6 +100,15 @@ void Boid::setNeighbourhoodSize(float f)
 	neighbourhoodSize = f;
 }
 
+void Boid::setMaxSpeed(float f)
+{
+    maxSpeed = f;
+}
+void Boid::setMaxForce(float f)
+{
+    maxForce = f;
+}
+
 
 ofVec3f Boid::getPosition()
 {
@@ -116,33 +125,82 @@ ofVec3f Boid::separation(std::vector<Boid *> &otherBoids)
 	// finds the first collision and avoids that
 	// should probably find the nearest one
 	// can you figure out how to do that?
-	for (int i = 0; i < otherBoids.size(); i++)
-	{	
-		if(position.distance(otherBoids[i]->getPosition()) < separationThreshold)
-		{
-			ofVec3f v = position - otherBoids[i]->getPosition();
-			v.normalize();
-			return v;
-		}
-	}
-}
-
-ofVec3f Boid::cohesion(std::vector<Boid *> &otherBoids)
-{
-	ofVec3f average(0,0,0);
-	int count = 0;
+    ofVec3f steer;
+    int count = 0;
 	for (int i = 0; i < otherBoids.size(); i++)
 	{
-		if (position.distance(otherBoids[i]->getPosition()) < neighbourhoodSize)
-		{
-			average += otherBoids[i]->getPosition();
-			count += 1;
-		}
+        Boid* otherBoid = otherBoids[i];
+        ofVec3f otherBoidPosition = otherBoid->getPosition();
+        float d = position.distance(otherBoidPosition);
+            
+        
+        if ((d > 0) && (d < separationThreshold)) {
+            ofVec3f diff = position - otherBoidPosition;
+//            diff.normalize();
+            diff /= d;
+            steer += diff;
+            count = count + 1;
+        }
 	}
-	average /= count;
-	ofVec3f v =  average - position;
-	v.normalize();
-	return v;
+    
+    if (count > 0) {
+        steer /= ((float) count);
+    }
+    
+    if (steer.lengthSquared() > 0) {
+        steer.normalize();
+        steer *= maxSpeed;
+        steer -= velocity;
+        steer.limit(maxForce);
+    }
+    
+    return steer;
+}
+
+//ofVec3f Boid::cohesion(std::vector<Boid *> &otherBoids)
+//{
+//	ofVec3f average(0,0,0);
+//	int count = 0;
+//	for (int i = 0; i < otherBoids.size(); i++)
+//	{
+//		if (position.distance(otherBoids[i]->getPosition()) < neighbourhoodSize)
+//		{
+//			average += otherBoids[i]->getPosition();
+//			count += 1;
+//		}
+//	}
+//	average /= count;
+//	ofVec3f v =  average - position;
+//	v.normalize();
+//	return v;
+//}
+ofVec3f Boid::cohesion(std::vector<Boid *> &otherBoids)
+{
+    ofVec3f average(0,0,0);
+    int count = 0;
+    for (int i = 0; i < otherBoids.size(); i++)
+    {
+        Boid* otherBoid = otherBoids[i];
+        ofVec3f otherBoidPosition = otherBoid->getPosition();
+        float d = position.distance(otherBoidPosition);
+
+        if ((d > 0) && (d < neighbourhoodSize))
+        {
+            average += otherBoid->getPosition();
+            count += 1;
+        }
+    }
+    if (count > 0) {
+        average /= ((float)count);
+        average -= position;
+        average.normalize();
+        average *= maxSpeed;
+        ofVec3f steer = average - velocity;
+        steer.limit(maxForce);
+        return steer;
+    }
+    
+    return ofVec3f();
 }
 
 ofVec3f Boid::alignment(std::vector<Boid *> &otherBoids)
@@ -151,16 +209,26 @@ ofVec3f Boid::alignment(std::vector<Boid *> &otherBoids)
 	int count = 0;
 	for (int i = 0; i < otherBoids.size(); i++)
 	{
-		if (position.distance(otherBoids[i]->getPosition()) < neighbourhoodSize)
+        Boid* otherBoid = otherBoids[i];
+        ofVec3f otherBoidPosition = otherBoid->getPosition();
+        float d = position.distance(otherBoidPosition);
+
+		if ((d > 0) && (d < neighbourhoodSize))
 		{
-			average += otherBoids[i]->getVelocity();
+			average += otherBoid->getVelocity();
 			count += 1;
 		}
 	}
-	average /= count;
-	ofVec3f v =  average - velocity;
-	v.normalize();
-	return v;
+    if (count > 0) {
+        average /= ((float)count);
+        average.normalize();
+        average *= maxSpeed;
+        ofVec3f steer =  average - velocity;
+        steer.limit(maxForce);
+        return steer;
+    }
+    
+    return ofVec3f();
 }
 
 void Boid::update(std::vector<Boid *> &otherBoids, ofVec3f &min, ofVec3f &max)
@@ -168,7 +236,7 @@ void Boid::update(std::vector<Boid *> &otherBoids, ofVec3f &min, ofVec3f &max)
 	acceleration += separationWeight*separation(otherBoids);
     acceleration += cohesionWeight*cohesion(otherBoids);
     acceleration += alignmentWeight*alignment(otherBoids);
-	
+
     velocity += acceleration;
     velocity.limit(maxSpeed);
 	position += velocity;
@@ -179,21 +247,31 @@ void Boid::update(std::vector<Boid *> &otherBoids, ofVec3f &min, ofVec3f &max)
 
 void Boid::walls(ofVec3f &min, ofVec3f &max)
 {
-	if (position.x < min.x){
-		position.x = min.x;
-		velocity.x *= -1;
-	} else if (position.x > max.x){
-		position.x = max.x;
-		velocity.x *= -1;
-	}
-	
-	if (position.y < min.y){
-		position.y = min.y;
-		velocity.y *= -1;
-	} else if (position.y > max.y){
-		position.y = max.y;
-		velocity.y *= -1;
-	}
+//	if (position.x < min.x){
+//		position.x = min.x;
+//		velocity.x *= -1;
+//	} else if (position.x > max.x){
+//		position.x = max.x;
+//		velocity.x *= -1;
+//	}
+//
+//	if (position.y < min.y){
+//		position.y = min.y;
+//		velocity.y *= -1;
+//	} else if (position.y > max.y){
+//		position.y = max.y;
+//		velocity.y *= -1;
+//	}
+    if (position.x < min.x){
+        position.x = max.x;
+    } else if (position.x > max.x){
+        position.x = min.x;
+    }
+    if (position.y < min.y){
+        position.y = max.y;
+    } else if (position.y > max.y){
+        position.y = min.y;
+    }
 	
 	
 }

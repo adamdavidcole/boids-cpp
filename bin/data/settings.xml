@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<group>
+	<seperationW>0.85</seperationW>
+	<cohesionW>0.75</cohesionW>
+	<alignmentW>0.5</alignmentW>
+	<separationThreshold>50</separationThreshold>
+	<neighbourhoodSize>100</neighbourhoodSize>
+	<maxForce>5.55063</maxForce>
+	<maxSpeed>15</maxSpeed>
+</group>

@@ -39,6 +39,15 @@ public:
 	Boid(ofVec3f &pos, ofVec3f &vel);
 	
 	~Boid();
+    
+    
+    static constexpr float INITIAL_SEPARATION_WEIGHT = 0.85;
+    static constexpr float INITIAL_COHESION_WEIGHT = 0.75;
+    static constexpr float INITIAL_ALIGHNMENT_WEIGHT = 0.5;
+    static constexpr float INITIAL_SEPARATION_THRESHOLD = 50;
+    static constexpr float INITIAL_NEIGHBORHOOD_SIZE = 100;
+    static constexpr float INITIAL_MAX_FORCE = 1;
+    static constexpr float INITIAL_MAX_SPEED = 5;
 	
 	ofVec3f getPosition();
 	ofVec3f getVelocity();
@@ -57,6 +66,9 @@ public:
 	
 	void setSeparationThreshold(float f);
 	void setNeighbourhoodSize(float f);
+    
+    void setMaxSpeed(float f);
+    void setMaxForce(float f);
 	
 	void update(std::vector<Boid *> &otherBoids, ofVec3f &min, ofVec3f &max);
 	
