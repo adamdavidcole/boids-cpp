@@ -32,11 +32,12 @@ private:
 	ofVec3f cohesion(std::vector<Boid *> &otherBoids);
 	ofVec3f alignment(std::vector<Boid *> &otherBoids);
 	
+    ofColor color;
 // all the methods and variables after the
 // public keyword can only be used by anyone
 public:	
-	Boid();
-	Boid(ofVec3f &pos, ofVec3f &vel);
+	Boid(ofColor color);
+	Boid(ofVec3f &pos, ofVec3f &vel, ofColor color);
 	
 	~Boid();
     
@@ -69,6 +70,8 @@ public:
     
     void setMaxSpeed(float f);
     void setMaxForce(float f);
+    
+    void setColor(ofColor color);
 	
 	void update(std::vector<Boid *> &otherBoids, ofVec3f &min, ofVec3f &max);
 	

@@ -10,7 +10,7 @@
 #include "boid.h"
 #include "ofMain.h"
 
-Boid::Boid()
+Boid::Boid(ofColor c)
 {
 	separationWeight = INITIAL_SEPARATION_WEIGHT;
 	cohesionWeight = INITIAL_COHESION_WEIGHT;
@@ -25,9 +25,11 @@ Boid::Boid()
     
     maxSpeed = INITIAL_MAX_SPEED;
     maxForce = INITIAL_MAX_FORCE;
+    
+    color = c;
 }
 
-Boid::Boid(ofVec3f &pos, ofVec3f &vel)
+Boid::Boid(ofVec3f &pos, ofVec3f &vel, ofColor c)
 {
     separationWeight = INITIAL_SEPARATION_WEIGHT;
     cohesionWeight = INITIAL_COHESION_WEIGHT;
@@ -42,6 +44,8 @@ Boid::Boid(ofVec3f &pos, ofVec3f &vel)
     
     maxSpeed = INITIAL_MAX_SPEED;
     maxForce = INITIAL_MAX_FORCE;
+    
+    color = c;
 }
 
 Boid::~Boid()
@@ -109,6 +113,9 @@ void Boid::setMaxForce(float f)
     maxForce = f;
 }
 
+void Boid::setColor(ofColor c) {
+    color = c;
+}
 
 ofVec3f Boid::getPosition()
 {
@@ -278,6 +285,6 @@ void Boid::walls(ofVec3f &min, ofVec3f &max)
 
 void Boid::draw()
 {
-	ofSetColor(0, 255, 255);
+	ofSetColor(color);
 	ofCircle(position.x, position.y, 5);
 }

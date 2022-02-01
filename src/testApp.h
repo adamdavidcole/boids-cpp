@@ -6,6 +6,7 @@
 #include <vector>
 #include "boid.h"
 #include "ofxGui.h"
+#include "flock.hpp"
 
 class testApp : public ofBaseApp{
 	
@@ -23,31 +24,11 @@ public:
     void mousePressed(int x, int y, int button);
     void mouseReleased(int x, int y, int button);
     void windowResized(int w, int h);
-
-    std::vector<Boid *> boids;
+    
+    Flock flock;
+    Flock flock2;
     
     static const int INITIAL_BOID_COUNT = 250;
-	
-    ofxFloatSlider seperationW;
-    ofxFloatSlider cohesionW;
-    ofxFloatSlider alignmentW;
-    
-    ofxFloatSlider separationThreshold;
-    ofxFloatSlider neighbourhoodSize;
-    
-    ofxFloatSlider maxSpeed;
-    ofxFloatSlider maxForce;
-
-    ofxPanel gui;
-    
-    void seperationWChanged(float & seperationW);
-    void cohesionWChanged(float & cohesionW);
-    void alignmentWChanged(float & alignmentW);
-    void separationThresholdChanged(float &separationThresholdChanged);
-    void neighbourhoodSizeChanged(float &neighbourhoodSize);
-    void maxSpeedChanged(float &maxSpeed);
-    void maxForceChanged(float &maxForce);
-
 };
 
 #endif	
