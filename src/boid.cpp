@@ -129,9 +129,6 @@ ofVec3f Boid::getVelocity()
 
 ofVec3f Boid::separation(std::vector<Boid *> &otherBoids)
 {
-	// finds the first collision and avoids that
-	// should probably find the nearest one
-	// can you figure out how to do that?
     ofVec3f steer;
     int count = 0;
 	for (int i = 0; i < otherBoids.size(); i++)
@@ -143,7 +140,6 @@ ofVec3f Boid::separation(std::vector<Boid *> &otherBoids)
         
         if ((d > 0) && (d < separationThreshold)) {
             ofVec3f diff = position - otherBoidPosition;
-//            diff.normalize();
             diff /= d;
             steer += diff;
             count = count + 1;
@@ -164,23 +160,6 @@ ofVec3f Boid::separation(std::vector<Boid *> &otherBoids)
     return steer;
 }
 
-//ofVec3f Boid::cohesion(std::vector<Boid *> &otherBoids)
-//{
-//	ofVec3f average(0,0,0);
-//	int count = 0;
-//	for (int i = 0; i < otherBoids.size(); i++)
-//	{
-//		if (position.distance(otherBoids[i]->getPosition()) < neighbourhoodSize)
-//		{
-//			average += otherBoids[i]->getPosition();
-//			count += 1;
-//		}
-//	}
-//	average /= count;
-//	ofVec3f v =  average - position;
-//	v.normalize();
-//	return v;
-//}
 ofVec3f Boid::cohesion(std::vector<Boid *> &otherBoids)
 {
     ofVec3f average(0,0,0);
