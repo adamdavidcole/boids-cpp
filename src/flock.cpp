@@ -45,6 +45,15 @@ void Flock::update() {
     }
 }
 
+void Flock::update(std::vector<Flock *> flocks) {
+    ofVec3f min(0, 0);
+    ofVec3f max(ofGetWidth(), ofGetHeight());
+    for (int i = 0; i < boids.size(); i++)
+    {
+        boids[i]->update(flocks, min, max);
+    }
+}
+
 void Flock::draw() {
     for (int i = 0; i < boids.size(); i++)
     {

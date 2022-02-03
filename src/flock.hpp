@@ -22,6 +22,7 @@ public:
     
     void setup();
     void update();
+    void update(std::vector<Flock *> flocks);
     void draw();
     
     static const int INITIAL_BOID_COUNT = 100;

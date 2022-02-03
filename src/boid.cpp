@@ -9,6 +9,7 @@
 
 #include "boid.h"
 #include "ofMain.h"
+#include "flock.hpp"
 
 Boid::Boid(ofColor c)
 {
@@ -228,6 +229,22 @@ void Boid::update(std::vector<Boid *> &otherBoids, ofVec3f &min, ofVec3f &max)
 	position += velocity;
     acceleration *= 0.0;
     
+    walls(min, max);
+}
+
+void Boid::update(std::vector<Flock *> &flocks, ofVec3f &min, ofVec3f &max)
+{
+    for (auto &flock : flocks) {
+        acceleration += separationWeight*separation(flock->boids);
+        acceleration += cohesionWeight*cohesion(flock->boids);
+        acceleration += alignmentWeight*alignment(flock->boids);
+    }
+
+    velocity += acceleration;
+    velocity.limit(maxSpeed);
+    position += velocity;
+    acceleration *= 0.0;
+
     walls(min, max);
 }
 

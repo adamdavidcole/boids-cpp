@@ -46,14 +46,14 @@ void testApp::setup(){
 
 
 //--------------------------------------------------------------
-void testApp::update(){
+void testApp::update() {
     for (auto &flock : flocks) {
-        flock->update();
+        flock->update(flocks);
     }
 }
 
 //--------------------------------------------------------------
-void testApp::draw(){
+void testApp::draw() {
     for (auto &flock : flocks) {
         flock->draw();
     }

@@ -7,6 +7,8 @@
 #define _BOID
 #include <vector>
 #include "ofMain.h"
+//#include "flock.hpp"
+class Flock;
 
 class Boid
 {
@@ -75,6 +77,8 @@ public:
     void setColor(ofColor color);
 	
 	void update(std::vector<Boid *> &otherBoids, ofVec3f &min, ofVec3f &max);
+    void update(std::vector<Flock *> &otherFlocks, ofVec3f &min, ofVec3f &max);
+
 	
 	void walls(ofVec3f &min, ofVec3f &max);
 	
