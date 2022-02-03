@@ -8,10 +8,7 @@
 #include "flock.hpp"
 
 Flock::Flock() {}
-Flock::Flock(std::vector<Boid *> &b) {
-    cout << b.size() << endl;
-    boids = b;
-}
+Flock::Flock(std::vector<Boid *> &b) : boids(b) {}
 
 Flock::~Flock() {
 //    for (int i = 0; i < boids.size(); i++)
@@ -42,7 +39,6 @@ void Flock::setup() {
 void Flock::update() {
     ofVec3f min(0, 0);
     ofVec3f max(ofGetWidth(), ofGetHeight());
-    cout << boids.size() << endl;
     for (int i = 0; i < boids.size(); i++)
     {
         boids[i]->update(boids, min, max);

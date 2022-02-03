@@ -26,13 +26,7 @@ public:
     void mouseReleased(int x, int y, int button);
     void windowResized(int w, int h);
     
-    std::vector<Boid *> fishes;
-    std::vector<Boid *> sharks;
-
-
-    Flock* flock;
-    Flock* flock2;
-    
+    std::vector<Flock *> flocks;
     
     static const int INITIAL_BOID_COUNT = 250;
 };

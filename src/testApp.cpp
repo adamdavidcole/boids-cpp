@@ -3,8 +3,9 @@
 using namespace std;
 
 testApp::testApp() {
-    cout << "begin testApp()" << endl;
-
+    std::vector<Boid *> fishes;
+    std::vector<Boid *> sharks;
+    
     for (int i = 0; i < 50; i++) {
         Boid* fish = new Fish(ofColor(180, 20, 10));
         fishes.push_back(fish);
@@ -14,27 +15,21 @@ testApp::testApp() {
         Boid* shark = new Shark(ofColor(20, 100, 200));
         sharks.push_back(shark);
     }
-    
-    cout << "begin flock()" << endl;
 
-    flock = new Flock(fishes);
-    flock2 = new Flock(sharks);
-    cout << "finished constructor" << endl;
-//    f.setup();
-//    flock = Flock(fish);
-//    flock2 = Flock();
+    Flock* flock = new Flock(fishes);
+    Flock* flock2 = new Flock(sharks);
+    flocks.push_back(flock);
+    flocks.push_back(flock2);
 }
 
 testApp::~testApp(){
-    for (int i = 0; i < fishes.size(); i++) {
-        delete fishes[i];
+    for (auto &flock : flocks) {
+        for (auto &boid : flock->boids) {
+            delete boid;
+        }
+        
+        delete flock;
     }
-    for (int i = 0; i < sharks.size(); i++) {
-        delete sharks[i];
-    }
-    
-    delete flock;
-    delete flock2;
 }
 
 //--------------------------------------------------------------
@@ -44,24 +39,24 @@ void testApp::setup(){
 
 	ofBackground(0,50,50);
 
-    cout << "begin setup" << endl;
-    flock->setup();
-    cout << "end setup" << endl;
-
-    flock2->setup();
+    for (auto &flock : flocks) {
+        flock->setup();
+    }
 }
 
 
 //--------------------------------------------------------------
 void testApp::update(){
-    flock->update();
-    flock2->update();
+    for (auto &flock : flocks) {
+        flock->update();
+    }
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    flock->draw();
-    flock2->draw();
+    for (auto &flock : flocks) {
+        flock->draw();
+    }
 }
 
 //--------------------------------------------------------------
