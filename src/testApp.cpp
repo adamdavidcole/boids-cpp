@@ -3,13 +3,39 @@
 using namespace std;
 
 testApp::testApp() {
-    std::vector<Boid *> fish;
+    cout << "begin testApp()" << endl;
+
+    for (int i = 0; i < 50; i++) {
+        Boid* fish = new Fish(ofColor(180, 20, 10));
+        fishes.push_back(fish);
+    }
     
+    for (int i = 0; i < 3; i++) {
+        Boid* shark = new Shark(ofColor(20, 100, 200));
+        sharks.push_back(shark);
+    }
+    
+    cout << "begin flock()" << endl;
+
+    flock = new Flock(fishes);
+    flock2 = new Flock(sharks);
+    cout << "finished constructor" << endl;
+//    f.setup();
 //    flock = Flock(fish);
-//    flock2 = Flock(fish);
+//    flock2 = Flock();
 }
 
-testApp::~testApp(){}
+testApp::~testApp(){
+    for (int i = 0; i < fishes.size(); i++) {
+        delete fishes[i];
+    }
+    for (int i = 0; i < sharks.size(); i++) {
+        delete sharks[i];
+    }
+    
+    delete flock;
+    delete flock2;
+}
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -18,21 +44,24 @@ void testApp::setup(){
 
 	ofBackground(0,50,50);
 
-    flock.setup();
-    flock2.setup();
+    cout << "begin setup" << endl;
+    flock->setup();
+    cout << "end setup" << endl;
+
+    flock2->setup();
 }
 
 
 //--------------------------------------------------------------
 void testApp::update(){
-    flock.update();
-    flock2.update();
+    flock->update();
+    flock2->update();
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    flock.draw();
-    flock2.draw();
+    flock->draw();
+    flock2->draw();
 }
 
 //--------------------------------------------------------------

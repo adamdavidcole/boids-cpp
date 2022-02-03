@@ -8,13 +8,16 @@
 #include "flock.hpp"
 
 Flock::Flock() {}
-Flock::Flock(std::vector<Boid *> &b) : boids(b) {}
+Flock::Flock(std::vector<Boid *> &b) {
+    cout << b.size() << endl;
+    boids = b;
+}
 
 Flock::~Flock() {
-    for (int i = 0; i < boids.size(); i++)
-    {
-        delete boids[i];
-    }
+//    for (int i = 0; i < boids.size(); i++)
+//    {
+//        delete boids[i];
+//    }
 }
 
 void Flock::setup() {
@@ -25,7 +28,7 @@ void Flock::setup() {
     neighbourhoodSize.addListener(this, &Flock::neighbourhoodSizeChanged);
     maxForce.addListener(this, &Flock::maxForceChanged);
     maxSpeed.addListener(this, &Flock::maxSpeedChanged);
-    
+//
     gui.setup(); // most of the time you don't need a name
     gui.add(seperationW.setup("seperationW", Boid::INITIAL_SEPARATION_WEIGHT, 0.0, 2.0));
     gui.add(cohesionW.setup("cohesionW", Boid::INITIAL_COHESION_WEIGHT, 0.0, 2.0));
@@ -34,19 +37,12 @@ void Flock::setup() {
     gui.add(neighbourhoodSize.setup("neighbourhoodSize", Boid::INITIAL_NEIGHBORHOOD_SIZE, 5.0, 200.0));
     gui.add(maxForce.setup("maxForce", Boid::INITIAL_MAX_FORCE, 0.001, 10.0));
     gui.add(maxSpeed.setup("maxSpeed", Boid::INITIAL_MAX_SPEED, 0.001, 10.0));
-
-    ofColor color = ofColor(ofRandom( 0, 255 ), 0, ofRandom( 128, 255 ));
-    
-    for (int i = 0; i < INITIAL_BOID_COUNT; i++)
-    {
-        Boid* fish = new Shark(color);
-        boids.push_back(fish);
-    }
 }
 
 void Flock::update() {
     ofVec3f min(0, 0);
     ofVec3f max(ofGetWidth(), ofGetHeight());
+    cout << boids.size() << endl;
     for (int i = 0; i < boids.size(); i++)
     {
         boids[i]->update(boids, min, max);

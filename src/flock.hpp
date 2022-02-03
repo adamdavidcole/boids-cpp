@@ -17,7 +17,7 @@
 class Flock {
 public:
     Flock();
-    Flock(std::vector<Boid *> &otherBoids);
+    Flock(std::vector<Boid *> &b);
     ~Flock();
     
     void setup();
