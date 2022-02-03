@@ -10,10 +10,14 @@
 
 #include <stdio.h>
 #include "boid.h"
+#include "fish.hpp"
+#include "shark.hpp"
 #include "ofxGui.h"
 
 class Flock {
 public:
+    Flock();
+    Flock(std::vector<Boid *> &otherBoids);
     ~Flock();
     
     void setup();

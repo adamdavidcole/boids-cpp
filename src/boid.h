@@ -13,7 +13,7 @@ class Boid
 // all the methods and variables after the
 // private keyword can only be used inside
 // the class
-private:	
+protected:
 	ofVec3f position;
 	ofVec3f velocity;
     ofVec3f acceleration;
@@ -31,8 +31,9 @@ private:
 	ofVec3f separation(std::vector<Boid *> &otherBoids);
 	ofVec3f cohesion(std::vector<Boid *> &otherBoids);
 	ofVec3f alignment(std::vector<Boid *> &otherBoids);
-	
+    
     ofColor color;
+
 // all the methods and variables after the
 // public keyword can only be used by anyone
 public:	
@@ -77,7 +78,7 @@ public:
 	
 	void walls(ofVec3f &min, ofVec3f &max);
 	
-	void draw();
+	virtual void draw();
 };
 
 #endif

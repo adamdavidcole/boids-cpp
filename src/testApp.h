@@ -11,6 +11,7 @@
 class testApp : public ofBaseApp{
 	
 public:
+    testApp();
     ~testApp();
 	
     void setup();

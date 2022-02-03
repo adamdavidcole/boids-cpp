@@ -7,6 +7,9 @@
 
 #include "flock.hpp"
 
+Flock::Flock() {}
+Flock::Flock(std::vector<Boid *> &b) : boids(b) {}
+
 Flock::~Flock() {
     for (int i = 0; i < boids.size(); i++)
     {
@@ -36,7 +39,8 @@ void Flock::setup() {
     
     for (int i = 0; i < INITIAL_BOID_COUNT; i++)
     {
-        boids.push_back(new Boid(color));
+        Boid* fish = new Shark(color);
+        boids.push_back(fish);
     }
 }
 

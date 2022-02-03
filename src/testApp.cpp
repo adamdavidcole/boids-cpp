@@ -2,6 +2,13 @@
 
 using namespace std;
 
+testApp::testApp() {
+    std::vector<Boid *> fish;
+    
+//    flock = Flock(fish);
+//    flock2 = Flock(fish);
+}
+
 testApp::~testApp(){}
 
 //--------------------------------------------------------------
