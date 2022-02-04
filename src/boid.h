@@ -15,7 +15,7 @@ class Boid
 // all the methods and variables after the
 // private keyword can only be used inside
 // the class
-protected:
+public:
 	ofVec3f position;
 	ofVec3f velocity;
     ofVec3f acceleration;
@@ -30,7 +30,7 @@ protected:
 	float separationThreshold;
 	float neighbourhoodSize;
 	
-	ofVec3f separation(std::vector<Boid *> &otherBoids);
+	virtual ofVec3f separation(std::vector<Boid *> &otherBoids);
 	ofVec3f cohesion(std::vector<Boid *> &otherBoids);
 	ofVec3f alignment(std::vector<Boid *> &otherBoids);
     
@@ -38,7 +38,6 @@ protected:
 
 // all the methods and variables after the
 // public keyword can only be used by anyone
-public:	
 	Boid(ofColor color);
 	Boid(ofVec3f &pos, ofVec3f &vel, ofColor color);
 	

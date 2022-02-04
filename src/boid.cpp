@@ -137,7 +137,6 @@ ofVec3f Boid::separation(std::vector<Boid *> &otherBoids)
         Boid* otherBoid = otherBoids[i];
         ofVec3f otherBoidPosition = otherBoid->getPosition();
         float d = position.distance(otherBoidPosition);
-            
         
         if ((d > 0) && (d < separationThreshold)) {
             ofVec3f diff = position - otherBoidPosition;
@@ -250,31 +249,31 @@ void Boid::update(std::vector<Flock *> &flocks, ofVec3f &min, ofVec3f &max)
 
 void Boid::walls(ofVec3f &min, ofVec3f &max)
 {
-//	if (position.x < min.x){
-//		position.x = min.x;
-//		velocity.x *= -1;
-//	} else if (position.x > max.x){
-//		position.x = max.x;
-//		velocity.x *= -1;
-//	}
-//
-//	if (position.y < min.y){
-//		position.y = min.y;
-//		velocity.y *= -1;
-//	} else if (position.y > max.y){
-//		position.y = max.y;
-//		velocity.y *= -1;
-//	}
-    if (position.x < min.x){
-        position.x = max.x;
-    } else if (position.x > max.x){
-        position.x = min.x;
-    }
-    if (position.y < min.y){
-        position.y = max.y;
-    } else if (position.y > max.y){
-        position.y = min.y;
-    }
+	if (position.x < min.x){
+		position.x = min.x;
+		velocity.x *= -1;
+	} else if (position.x > max.x){
+		position.x = max.x;
+		velocity.x *= -1;
+	}
+
+	if (position.y < min.y){
+		position.y = min.y;
+		velocity.y *= -1;
+	} else if (position.y > max.y){
+		position.y = max.y;
+		velocity.y *= -1;
+	}
+//    if (position.x < min.x){
+//        position.x = max.x;
+//    } else if (position.x > max.x){
+//        position.x = min.x;
+//    }
+//    if (position.y < min.y){
+//        position.y = max.y;
+//    } else if (position.y > max.y){
+//        position.y = min.y;
+//    }
 	
 	
 }

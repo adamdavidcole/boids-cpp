@@ -6,23 +6,37 @@ testApp::testApp() {
     std::vector<Boid *> fishes;
     std::vector<Boid *> sharks;
     
-    for (int i = 0; i < 50; i++) {
-        Boid* fish = new Fish(ofColor(180, 20, 10));
+    for (int i = 0; i < 250; i++) {
+        Fish* fish = new Fish(ofColor(180, 20, 10));
         fishes.push_back(fish);
     }
     
-    for (int i = 0; i < 3; i++) {
-        Boid* shark = new Shark(ofColor(20, 100, 200));
+    for (int i = 0; i < 5; i++) {
+        Shark* shark = new Shark(ofColor(20, 100, 200));
         sharks.push_back(shark);
     }
+//
+    fishFlock = new FishFlock(fishes);
+    sharkFlock = new SharkFlock(sharks);
+    
 
-    Flock* flock = new Flock(fishes);
-    Flock* flock2 = new Flock(sharks);
-    flocks.push_back(flock);
-    flocks.push_back(flock2);
+    //    flocks.push_back(flock);
+//    flocks.push_back(flock2);
 }
 
 testApp::~testApp(){
+    std::vector<Boid *> fishes = fishFlock->boids;
+    for (int i = 0; i < fishes.size(); i++) {
+        delete fishes[i];
+    }
+    delete fishFlock;
+    
+    std::vector<Boid *> sharks = sharkFlock->boids;
+    for (int i = 0; i < sharks.size(); i++) {
+        delete sharks[i];
+    }
+    delete sharkFlock;
+    
     for (auto &flock : flocks) {
         for (auto &boid : flock->boids) {
             delete boid;
@@ -39,6 +53,9 @@ void testApp::setup(){
 
 	ofBackground(0,50,50);
 
+    fishFlock->setup();
+    sharkFlock->setup();
+    
     for (auto &flock : flocks) {
         flock->setup();
     }
@@ -47,6 +64,12 @@ void testApp::setup(){
 
 //--------------------------------------------------------------
 void testApp::update() {
+//    ((Flock*)fishFlock)->update();
+    fishFlock->update(sharkFlock->boids);
+    sharkFlock->update(fishFlock->boids);
+    
+//    fishFlock->updateSharks(sharkFlock->boids);
+    
     for (auto &flock : flocks) {
         flock->update(flocks);
     }
@@ -54,6 +77,9 @@ void testApp::update() {
 
 //--------------------------------------------------------------
 void testApp::draw() {
+    fishFlock->draw();
+    sharkFlock->draw();
+    
     for (auto &flock : flocks) {
         flock->draw();
     }

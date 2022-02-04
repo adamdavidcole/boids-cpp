@@ -6,7 +6,10 @@
 #include <vector>
 #include "boid.h"
 #include "ofxGui.h"
+#include "sharkFlock.hpp"
+#include "fishFlock.hpp"
 #include "flock.hpp"
+
 
 class testApp : public ofBaseApp{
 	
@@ -27,6 +30,9 @@ public:
     void windowResized(int w, int h);
     
     std::vector<Flock *> flocks;
+    
+    FishFlock* fishFlock;
+    SharkFlock* sharkFlock;
     
     static const int INITIAL_BOID_COUNT = 250;
 };

@@ -20,7 +20,7 @@ public:
     Flock(std::vector<Boid *> &b);
     ~Flock();
     
-    void setup();
+    virtual void setup();
     void update();
     void update(std::vector<Flock *> flocks);
     void draw();

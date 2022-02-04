@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include "boid.h"
+#include "shark.hpp"
 
 class Fish : public Boid {
 private:
@@ -17,6 +18,12 @@ private:
 public:
     Fish(ofColor color);
     void draw();
+    void update(std::vector<Boid *> &otherBoids, std::vector<Boid*> &sharks, ofVec3f &min, ofVec3f &max);
+    void updateSharks(std::vector<Boid*> &sharks, ofVec3f &min, ofVec3f &max);
+    
+    ofVec3f sharkSeperation(std::vector<Boid *> &otherBoids);
+    ofVec3f sharkAlignment(std::vector<Boid *> &otherBoids);
+    ofVec3f sharkCohesion(std::vector<Boid *> &otherBoids);
 };
 
 #endif /* fish_hpp */
