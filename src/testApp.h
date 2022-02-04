@@ -35,6 +35,8 @@ public:
     SharkFlock* sharkFlock;
     
     static const int INITIAL_BOID_COUNT = 250;
+    
+    ofEasyCam cam; // add mouse controls for camera movement
 };
 
 #endif	

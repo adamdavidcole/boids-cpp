@@ -16,8 +16,12 @@
 class FishFlock : public Flock {
 public:
     FishFlock(std::vector<Boid*> &f);
+    void draw();
     void update(std::vector<Boid*> &sharks);
     ofVec3f separation(std::vector<Shark *> &sharks);
+    
+    ofLight light;
+    ofMaterial material;
 };
 
 #endif /* fishFlock_hpp */

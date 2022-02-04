@@ -7,7 +7,20 @@
 
 #include "fishFlock.hpp"
 
-FishFlock::FishFlock(std::vector<Boid*> &f) : Flock(f) {};
+FishFlock::FishFlock(std::vector<Boid*> &f) : Flock(f) {
+//    material.setEmissiveColor(ofFloatColor(20, 0 , 15));
+//    material.setShininess(10);
+    material.setDiffuseColor(ofColor::red);
+    material.setAmbientColor(ofColor::red);
+    material.setSpecularColor(ofColor::white);
+
+    material.setShininess(128);
+    
+    light.setPointLight();
+    light.setAttenuation(1.0340000, .001000, 0);
+
+
+};
 
 void FishFlock::update(std::vector<Boid*> &sharks) {
     ofVec3f min(0, 0);
@@ -17,6 +30,40 @@ void FishFlock::update(std::vector<Boid*> &sharks) {
         Fish* fish = (Fish*)boids[i];
         fish->update(boids, sharks, min, max);
     }
+//    
+//    light.setAttenuation(((float)ofGetMouseX())/1000.0, ((float)(ofGetMouseY()))/1000.0, 0);
+//    cout << to_string(((float)ofGetMouseX())/1000.0) << to_string(((float)(ofGetMouseY()))/1000.0) << endl;
+}
+
+void FishFlock::draw() {
+    
+    Boid* firstBoid = boids[0];
+    
+    ofVec3f lightPosition = firstBoid->position;
+    
+    ofSetColor(255, 255, 255);
+    ofDrawSphere(lightPosition, 5);
+    
+    ofEnableLighting();
+    light.enable();
+    light.setPosition(lightPosition);
+    //    light.setPosition(particles[0].position);
+
+    //    for(unsigned int i = 0; i < particles.size(); i++){
+            //ofPushStyle();
+            //ofSetColor(particles[i].color);
+    material.setDiffuseColor(ofColor(255, 0 , 0));
+    material.begin();
+
+    for (int i = 0; i < boids.size(); i++)
+    {
+        boids[i]->draw();
+    }
+    
+    material.end();
+
+    light.disable();
+    ofDisableLighting();
 }
 //
 //void FishFlock::updateSharks(std::vector<Boid*> &sharks) {

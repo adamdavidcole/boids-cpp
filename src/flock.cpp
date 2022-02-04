@@ -60,6 +60,11 @@ void Flock::draw() {
         boids[i]->draw();
     }
 
+//    gui.draw();
+}
+
+
+void Flock::drawGui() {
     gui.draw();
 }
 

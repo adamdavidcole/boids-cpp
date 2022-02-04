@@ -9,25 +9,42 @@
 #include "fish.hpp"
 
 Fish::Fish(ofColor color) : Boid(color) {
+    light.setAmbientColor(ofColor(0, 0, 0));
     
 }
 
 void Fish::draw() {
     ofSetColor(color);
+//    ofSetColor(255, 255, 255, 50);
+
+//    light.enable();
+//    light.setPosition(particles[0].position);
+
+//    for(unsigned int i = 0; i < particles.size(); i++){
+        //ofPushStyle();
+        //ofSetColor(particles[i].color);
+//        material.setDiffuseColor(color);
+//
+//        material.begin();
 
     ofVec3f pos = getPosition();
     ofVec3f velocity = getVelocity();
     float angle = atan2(velocity.y, velocity.x);
-    
-    ofPushMatrix();
-    
-    ofTranslate(pos);
-    ofRotateRad(angle);
-    ofVec2f p1(-size, size);
-    ofVec2f p2(size * 3, 0);
-    ofVec2f p3(-size, -size);
-    ofDrawTriangle(p1, p2, p3);
-    ofPopMatrix();
+    float angle2 = atan2(velocity.z, velocity.y);
+
+//    ofPushMatrix();
+//    ofTranslate(pos);
+//    ofRotateZRad(angle + PI);
+//    ofRotateXRad(angle2 + PI);
+////    ofRotateRad(angle);
+//
+////    ofVec2f p1(-size, size);
+////    ofVec2f p2(size * 3, 0);
+////    ofVec2f p3(-size, -size);
+//    ofDrawCone(ofVec3f(0,0,0), 5, 20);
+//    ofPopMatrix();
+
+    ofDrawSphere(pos.x, pos.y, pos.z, 5);
 }
 
 ofVec3f Fish::sharkSeperation(std::vector<Boid *> &otherBoids) {
@@ -39,7 +56,7 @@ ofVec3f Fish::sharkSeperation(std::vector<Boid *> &otherBoids) {
         ofVec3f otherBoidPosition = otherBoid->getPosition();
         float d = position.distance(otherBoidPosition);
         
-        if ((d > 0) && (d < separationThreshold*2.0)) {
+        if ((d > 0) && (d < separationThreshold*4.0)) {
             ofVec3f diff = position - otherBoidPosition;
             diff /= d;
             steer += diff;
@@ -79,12 +96,14 @@ ofVec3f Fish::sharkAlignment(std::vector<Boid *> &otherBoids)
     }
     if (count > 0) {
         average /= ((float)count);
-        ofVec2f perpindicularAvg = ofVec2f(average).rotate(30);
-        perpindicularAvg *= maxSpeed;
+        average.normalize();
+        average *= maxSpeed;
+//        ofVec2f perpindicularAvg = ofVec2f(average).rotate(30);
+//        perpindicularAvg *= maxSpeed;
         
         // get perpindiculat direction
         
-        ofVec3f steer =  ofVec3f(perpindicularAvg) - velocity;
+        ofVec3f steer =  average - velocity;
         steer.limit(maxForce);
         return steer;
     }
@@ -101,8 +120,8 @@ void Fish::update(std::vector<Boid *> &otherBoids, std::vector<Boid*> &sharks, o
     acceleration += separationWeight*separation(otherBoids);
     acceleration += cohesionWeight*cohesion(otherBoids);
     acceleration += alignmentWeight*alignment(otherBoids);
-    acceleration += 20.0 * sharkSeperation(sharks);
-    acceleration += 100.0 * sharkAlignment(sharks);
+    acceleration += 30.0 * sharkSeperation(sharks);
+    acceleration += 10.0 * sharkAlignment(sharks);
 
     velocity += acceleration;
     velocity.limit(maxSpeed);

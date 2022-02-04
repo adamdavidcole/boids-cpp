@@ -24,6 +24,9 @@ public:
     ofVec3f sharkSeperation(std::vector<Boid *> &otherBoids);
     ofVec3f sharkAlignment(std::vector<Boid *> &otherBoids);
     ofVec3f sharkCohesion(std::vector<Boid *> &otherBoids);
+    
+    ofLight light;
+    ofMaterial material;
 };
 
 #endif /* fish_hpp */

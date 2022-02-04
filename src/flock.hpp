@@ -24,6 +24,7 @@ public:
     void update();
     void update(std::vector<Flock *> flocks);
     void draw();
+    void drawGui();
     
     static const int INITIAL_BOID_COUNT = 100;
     

@@ -25,7 +25,7 @@ public:
     static constexpr float INITIAL_SEPARATION_THRESHOLD = 100;
     static constexpr float INITIAL_NEIGHBORHOOD_SIZE = 50;
     static constexpr float INITIAL_MAX_FORCE = 2;
-    static constexpr float INITIAL_MAX_SPEED = 1;
+    static constexpr float INITIAL_MAX_SPEED = 3;
     
     ofVec3f fishCohesion(std::vector<Boid *> &otherBoids);
 };

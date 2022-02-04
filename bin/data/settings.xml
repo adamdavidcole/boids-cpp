@@ -5,6 +5,6 @@
 	<alignmentW>0.5</alignmentW>
 	<separationThreshold>50</separationThreshold>
 	<neighbourhoodSize>100</neighbourhoodSize>
-	<maxForce>5.55063</maxForce>
-	<maxSpeed>15</maxSpeed>
+	<maxForce>1</maxForce>
+	<maxSpeed>1</maxSpeed>
 </group>

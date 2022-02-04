@@ -22,21 +22,20 @@ Shark::Shark(ofColor color) : Boid(color) {
     separationThreshold = Shark::INITIAL_SEPARATION_THRESHOLD;
     neighbourhoodSize = Shark::INITIAL_NEIGHBORHOOD_SIZE;
     maxForce = Shark::INITIAL_MAX_FORCE;
-    maxSpeed = 1;
-    
-    cout << this->maxSpeed << endl;
-
+    maxSpeed = Shark::INITIAL_MAX_SPEED;
 }
 
 void Shark::draw() {
-    ofSetColor(color);
+//    ofSetColor(color);
+    ofSetColor(30, 30, 200);
+
 
     ofVec3f pos = getPosition();
     
-    ofPushMatrix();
-    ofTranslate(pos);
-    ofDrawCircle(0, 0, size);
-    ofPopMatrix();
+//    ofPushMatrix();
+//    ofTranslate(pos);
+    ofDrawSphere(pos, 20);
+//    ofPopMatrix();
 }
 
 ofVec3f Shark::fishCohesion(std::vector<Boid *> &otherBoids) {
@@ -48,7 +47,7 @@ ofVec3f Shark::fishCohesion(std::vector<Boid *> &otherBoids) {
         ofVec3f otherBoidPosition = otherBoid->getPosition();
         float d = position.distance(otherBoidPosition);
 
-        if ((d > 0) && (d < neighbourhoodSize/2.0))
+        if ((d > 0) && (d < neighbourhoodSize))
         {
             average += otherBoid->getPosition();
             count += 1;
@@ -73,7 +72,7 @@ void Shark::update(std::vector<Boid *> &otherBoids, std::vector<Boid*> &fish, of
     acceleration += cohesionWeight*cohesion(otherBoids);
     acceleration += alignmentWeight*alignment(otherBoids);
     
-    acceleration += fishCohesion(fish);
+    acceleration += 50.0 * fishCohesion(fish);
 
     velocity += acceleration;
     velocity.limit(maxSpeed);
@@ -81,8 +80,4 @@ void Shark::update(std::vector<Boid *> &otherBoids, std::vector<Boid*> &fish, of
     acceleration *= 0.0;
     
     walls(min, max);
-    
-    
-    cout << maxSpeed << endl;
-
 }

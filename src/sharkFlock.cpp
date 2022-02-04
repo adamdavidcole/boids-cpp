@@ -8,7 +8,13 @@
 #include "sharkFlock.hpp"
 
 SharkFlock::SharkFlock(std::vector<Boid*> &s) : Flock(s) {
-  
+    material.setDiffuseColor(ofColor::blue);
+    material.setAmbientColor(ofColor::blue);
+    material.setSpecularColor(ofColor::white);
+
+    material.setShininess(128);
+    
+    light.setAttenuation(1.0340000, .001000);
 };
 
 void SharkFlock::setup() {
@@ -30,10 +36,29 @@ void SharkFlock::setup() {
     gui.add(maxSpeed.setup("maxSpeed", Shark::INITIAL_MAX_SPEED, 0.001, 10.0));
 }
 
+void SharkFlock::draw() {
+    ofEnableLighting();
+    light.enable();
+    material.begin();
+
+    for (int i = 0; i < boids.size(); i++)
+    {
+        boids[i]->draw();
+    }
+    
+    material.end();
+    light.disable();
+    ofDisableLighting();
+}
+
 
 void SharkFlock::update(std::vector<Boid*> &f) {
     ofVec3f min(0, 0);
     ofVec3f max(ofGetWidth(), ofGetHeight());
+    
+    Boid* firstFish = f[0];
+    light.setPosition(firstFish->position);
+    
     for (int i = 0; i < boids.size(); i++)
     {
         Shark* shark = (Shark*)boids[i];

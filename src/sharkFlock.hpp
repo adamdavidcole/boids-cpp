@@ -17,6 +17,7 @@ public:
     SharkFlock(std::vector<Boid*> &s);
     void update(std::vector<Boid*> &fish);
     void setup();
+    void draw();
     
     void seperationWChanged(float & seperationW);
     void cohesionWChanged(float & cohesionW);
@@ -25,7 +26,9 @@ public:
     void neighbourhoodSizeChanged(float &neighbourhoodSize);
     void maxSpeedChanged(float &maxSpeed);
     void maxForceChanged(float &maxForce);
-
+    
+    ofLight light;
+    ofMaterial material;
 };
 
 #endif /* sharkFlock_hpp */
