@@ -50,7 +50,7 @@ public:
     static constexpr float INITIAL_SEPARATION_THRESHOLD = 50;
     static constexpr float INITIAL_NEIGHBORHOOD_SIZE = 100;
     static constexpr float INITIAL_MAX_FORCE = 1;
-    static constexpr float INITIAL_MAX_SPEED = 2.5;
+    static constexpr float INITIAL_MAX_SPEED = 4.75;
 	
 	ofVec3f getPosition();
 	ofVec3f getVelocity();

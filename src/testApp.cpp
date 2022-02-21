@@ -136,8 +136,8 @@ void testApp::draw() {
     
     ofDisableDepthTest();
     
-    fishFlock->drawGui();
-    sharkFlock->drawGui();
+//    fishFlock->drawGui();
+//    sharkFlock->drawGui();
 
     
 //    for (auto &flock : flocks) {
