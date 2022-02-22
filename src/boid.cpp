@@ -23,12 +23,12 @@ Boid::Boid(ofColor c)
     maxForce = INITIAL_MAX_FORCE;
 
 	
-//	position = ofVec3f(ofRandom(0, ofGetWidth()), ofRandom(0, ofGetHeight()));
-//	velocity = ofVec3f(ofRandom(-2, 2), ofRandom(-2, 2));
+	position = ofVec3f(ofRandom(0, ofGetWidth()), ofRandom(0, ofGetHeight()));
+	velocity = ofVec3f(ofRandom(-2, 2), ofRandom(-2, 2));
     float boxSize = 400;
     
-    position = ofVec3f(0 + ofRandom(-boxSize,boxSize), 0 + ofRandom(-boxSize, boxSize), ofRandom(-boxSize, boxSize));
-    velocity = ofVec3f(ofRandom(-maxSpeed, maxSpeed),ofRandom(-maxSpeed, maxSpeed), ofRandom(-maxSpeed, maxSpeed));
+//    position = ofVec3f(0 + ofRandom(-boxSize,boxSize), 0 + ofRandom(-boxSize, boxSize), 0);
+//    velocity = ofVec3f(ofRandom(-maxSpeed, maxSpeed),ofRandom(-maxSpeed, maxSpeed), 0);
 
     acceleration = ofVec3f();
     
@@ -257,44 +257,44 @@ void Boid::walls(ofVec3f &min, ofVec3f &max)
 {
     int boxLimits = 400;
     
-//	if (position.x < min.x){
-//		position.x = min.x;
-//		velocity.x *= -1;
-//	} else if (position.x > max.x){
-//		position.x = max.x;
-//		velocity.x *= -1;
-//	}
-//
-//	if (position.y < min.y){
-//		position.y = min.y;
-//		velocity.y *= -1;
-//	} else if (position.y > max.y){
-//		position.y = max.y;
-//		velocity.y *= -1;
-//	}
-//
-    if (position.x < -boxLimits){
-        position.x = -boxLimits;
-        velocity.x *= -1;
-    } else if (position.x > boxLimits){
-        position.x = boxLimits;
-        velocity.x *= -1;
-    }
+	if (position.x < min.x){
+		position.x = min.x;
+		velocity.x *= -1;
+	} else if (position.x > max.x){
+		position.x = max.x;
+		velocity.x *= -1;
+	}
 
-    if (position.y < -boxLimits){
-        position.y = -boxLimits;
-        velocity.y *= -1;
-    } else if (position.y > boxLimits){
-        position.y = boxLimits;
-        velocity.y *= -1;
-    }
-    if (position.z < -boxLimits) {
-        position.z = -boxLimits;
-        velocity.z *= -1;
-    } else if (position.z > boxLimits){
-        position.z = boxLimits;
-        velocity.z *= -1;
-    }
+	if (position.y < min.y){
+		position.y = min.y;
+		velocity.y *= -1;
+	} else if (position.y > max.y){
+		position.y = max.y;
+		velocity.y *= -1;
+	}
+//
+//    if (position.x < -boxLimits){
+//        position.x = -boxLimits;
+//        velocity.x *= -1;
+//    } else if (position.x > boxLimits){
+//        position.x = boxLimits;
+//        velocity.x *= -1;
+//    }
+//
+//    if (position.y < -boxLimits){
+//        position.y = -boxLimits;
+//        velocity.y *= -1;
+//    } else if (position.y > boxLimits){
+//        position.y = boxLimits;
+//        velocity.y *= -1;
+//    }
+//    if (position.z < -boxLimits) {
+//        position.z = -boxLimits;
+//        velocity.z *= -1;
+//    } else if (position.z > boxLimits){
+//        position.z = boxLimits;
+//        velocity.z *= -1;
+//    }
 //    if (position.x < min.x){
 //        position.x = max.x;
 //    } else if (position.x > max.x){

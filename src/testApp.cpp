@@ -21,7 +21,8 @@ testApp::testApp() {
     
     
     ofBackground(10);
-    ofSetBackgroundAuto(true);
+    ofSetBackgroundAuto(false);
+//    ofSetBackgroundAuto(true);
 //    ofSetBackgroundColor(20);
 //    ofEnableBlendMode(OF_BLENDMODE_ADD);
 }
@@ -68,7 +69,7 @@ void testApp::setup(){
         flock->setup();
     }
     
-    cam.setPosition(0, 0, -1000);
+   // cam.setPosition(0, 0, -1000);
 }
 
 
@@ -83,26 +84,26 @@ void testApp::update() {
     for (auto &flock : flocks) {
         flock->update(flocks);
     }
-    
-    ofVec3f camPos = cam.getPosition();
-    camPos = camPos.rotate(0.25, ofVec3f(0,1,0));
-    cam.setPosition(camPos);
+//
+//    ofVec3f camPos = cam.getPosition();
+//    camPos = camPos.rotate(0.25, ofVec3f(0,1,0));
+//    cam.setPosition(camPos);
 //    cam.rotate(10, ofVec3f(0, 1, 0));
-    cam.lookAt(ofVec3f(0,0,0));
+//    cam.lookAt(ofVec3f(0,0,0));
 }
 
 //--------------------------------------------------------------
 void testApp::draw() {
-//    ofEnableBlendMode(OF_BLENDMODE_SUBTRACT);
-//    ofSetColor(ofColor(15, 15, 15, 50));
-//    ofRect(0, 0, ofGetWidth(), ofGetHeight());
+    ofEnableBlendMode(OF_BLENDMODE_SUBTRACT);
+    ofSetColor(ofColor(15, 15, 15, 10));
+    ofRect(0, 0, ofGetWidth(), ofGetHeight());
 
     
 //    ofBackground(20);
-    cam.begin();
+//    cam.begin();
 //    ofSetConeResolution(20, 2);
 //    ofSetCylinderResolution(20, 2);
-    ofEnableDepthTest();
+//    ofEnableDepthTest();
 //    ofSetColor(ofColor::red);//RIGHT
 //    ofDrawCone(100, 0, 0, 50, 100);
 //
@@ -124,20 +125,21 @@ void testApp::draw() {
 //    ofDrawGrid(20,10,true,true,true,true);
 //    ofDisableDepthTest();
 //
-//    ofEnableBlendMode(OF_BLENDMODE_ADD);
+    ofEnableBlendMode(OF_BLENDMODE_ADD);
 //
     fishFlock->draw();
     sharkFlock->draw();
     
-//    ofDisableBlendMode();
+    ofDisableBlendMode();
 
     
-    cam.end();
+//    cam.end();
     
-    ofDisableDepthTest();
+   ofDisableDepthTest();
     
-//    fishFlock->drawGui();
-//    sharkFlock->drawGui();
+    
+    fishFlock->drawGui();
+    sharkFlock->drawGui();
 
     
 //    for (auto &flock : flocks) {
