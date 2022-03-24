@@ -15,12 +15,13 @@ Using that setup, I began to explore different textures and visuals I could crea
 
 
 I also explored visualizing these interactions in 3D, playing with a moving light source that was a part of the flock:
-https://user-images.githubusercontent.com/5685294/159823673-f1e9378b-3cbb-427f-8d0f-e104e497563d.mp4
+<video width="600" src="https://user-images.githubusercontent.com/5685294/159823673-f1e9378b-3cbb-427f-8d0f-e104e497563d.mp4">
 
 ------
 
 Lastly, I tried to create a drawing tool where I could create novel graphics using the boids as a brush:
-https://user-images.githubusercontent.com/5685294/159824032-57543fcc-c87e-4311-a44a-84553f80fc41.mp4
-https://user-images.githubusercontent.com/5685294/159824046-aea67f8f-ea53-410a-a2b1-6bf1e261d53d.mp4
+<video width="600" src="https://user-images.githubusercontent.com/5685294/159824032-57543fcc-c87e-4311-a44a-84553f80fc41.mp4">
+  
+<video width="600" src="https://user-images.githubusercontent.com/5685294/159824046-aea67f8f-ea53-410a-a2b1-6bf1e261d53d.mp4">
 
 
