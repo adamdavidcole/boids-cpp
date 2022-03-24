@@ -25,6 +25,14 @@ void Flock::setup() {
     neighbourhoodSize.addListener(this, &Flock::neighbourhoodSizeChanged);
     maxForce.addListener(this, &Flock::maxForceChanged);
     maxSpeed.addListener(this, &Flock::maxSpeedChanged);
+    
+    radius.addListener(this, &Flock::radiusChanged);
+    red.addListener(this, &Flock::redChanged);
+    green.addListener(this, &Flock::greenChanged);
+    blue.addListener(this, &Flock::blueChanged);
+    alpha.addListener(this, &Flock::alphaChanged);
+    colorRandomization.addListener(this, &Flock::colorRandomizationChanged);
+    
 //
     gui.setup(); // most of the time you don't need a name
     gui.add(seperationW.setup("seperationW", Boid::INITIAL_SEPARATION_WEIGHT, 0.0, 2.0));
@@ -34,6 +42,14 @@ void Flock::setup() {
     gui.add(neighbourhoodSize.setup("neighbourhoodSize", Boid::INITIAL_NEIGHBORHOOD_SIZE, 5.0, 200.0));
     gui.add(maxForce.setup("maxForce", Boid::INITIAL_MAX_FORCE, 0.001, 10.0));
     gui.add(maxSpeed.setup("maxSpeed", Boid::INITIAL_MAX_SPEED, 0.001, 10.0));
+    
+   
+    gui.add(radius.setup("radius", Boid::INITIAL_RADIUS, 0.0001, 30.0));
+    gui.add(red.setup("red", Boid::INITIAL_RED, 0, 255));
+    gui.add(green.setup("green", Boid::INITIAL_GREEN, 0, 255));
+    gui.add(blue.setup("blue", Boid::INITIAL_BLUE, 0, 255));
+    gui.add(alpha.setup("alpha", Boid::INITIAL_ALPHA, 0, 255));
+    gui.add(colorRandomization.setup("colorRandomization", Boid::INITIAL_COLOR_RANDOMIZATION, 0, 255));
 }
 
 void Flock::update() {
@@ -110,5 +126,51 @@ void Flock::maxForceChanged(float &maxForce){
     for (int i = 0; i < boids.size(); i++)
     {
         boids[i]->setMaxForce(maxForce);
+    }
+}
+
+void Flock::radiusChanged(float &radius) {
+    for (int i = 0; i < boids.size(); i++)
+    {
+        boids[i]->setRadius(radius);
+    }
+}
+
+void Flock::redChanged(float &red) {
+    for (int i = 0; i < boids.size(); i++)
+    {
+        boids[i]->color.r = red;
+    }
+}
+void Flock::greenChanged(float &green) {
+    for (int i = 0; i < boids.size(); i++)
+    {
+        boids[i]->color.g = green;
+    }
+    std::cout << "green: " << ofToString(green) << std::endl;
+}
+void Flock::blueChanged(float &blue) {
+    for (int i = 0; i < boids.size(); i++)
+    {
+        boids[i]->color.b = blue;
+    }
+}
+void Flock::alphaChanged(float &alpha) {
+    for (int i = 0; i < boids.size(); i++)
+    {
+        boids[i]->color.a = alpha;
+    }
+}
+void Flock::colorRandomizationChanged(float &colorRandomization) {
+    for (int i = 0; i < boids.size(); i++)
+    {
+        float randR = ofRandom(-colorRandomization / 2.0, colorRandomization / 2.0);
+        boids[i]->color.r = boids[i]->color.r + randR;
+        
+        float randG = ofRandom(-colorRandomization / 2.0, colorRandomization / 2.0);
+        boids[i]->color.g = boids[i]->color.g + randG;
+        
+        float randB = ofRandom(-colorRandomization / 2.0, colorRandomization / 2.0);
+        boids[i]->color.b = boids[i]->color.b + randB;
     }
 }

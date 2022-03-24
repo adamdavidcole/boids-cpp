@@ -38,30 +38,28 @@ void FishFlock::update(std::vector<Boid*> &sharks) {
 void FishFlock::draw() {
     
     Boid* firstBoid = boids[0];
-    
+//
     ofVec3f lightPosition = firstBoid->position;
-    
-    ofSetColor(255, 255, 255);
-    ofDrawSphere(lightPosition, 5);
+//
+//    ofSetColor(255, 255, 255);
+//    ofDrawSphere(lightPosition, 5);
     
     ofEnableLighting();
     light.enable();
     light.setPosition(lightPosition);
-    //    light.setPosition(particles[0].position);
-
-    //    for(unsigned int i = 0; i < particles.size(); i++){
-            //ofPushStyle();
-            //ofSetColor(particles[i].color);
     material.setDiffuseColor(ofColor(255, 0 , 0));
     material.begin();
 
     for (int i = 0; i < boids.size(); i++)
     {
+        material.setDiffuseColor(boids[i]->color);
+        material.setAmbientColor(boids[i]->color);
+        material.begin();
+
         boids[i]->draw();
     }
     
     material.end();
-
     light.disable();
     ofDisableLighting();
 }

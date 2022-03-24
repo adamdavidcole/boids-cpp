@@ -15,7 +15,7 @@ Fish::Fish(ofColor color) : Boid(color) {
 
 void Fish::draw() {
     ofSetColor(color);
-//    ofSetColor(255, 255, 255, 50);
+    //ofSetColor(255, 60, 255, 50);
 
 //    light.enable();
 //    light.setPosition(particles[0].position);
@@ -44,7 +44,8 @@ void Fish::draw() {
 //    ofDrawCone(ofVec3f(0,0,0), 5, 20);
 //    ofPopMatrix();
 
-    ofDrawSphere(pos.x, pos.y, pos.z, 5);
+    // ofDrawSphere(pos.x, pos.y, pos.z, 1);
+    ofDrawCircle(pos.x, pos.y, radius);
 }
 
 ofVec3f Fish::sharkSeperation(std::vector<Boid *> &otherBoids) {
@@ -120,8 +121,8 @@ void Fish::update(std::vector<Boid *> &otherBoids, std::vector<Boid*> &sharks, o
     acceleration += separationWeight*separation(otherBoids);
     acceleration += cohesionWeight*cohesion(otherBoids);
     acceleration += alignmentWeight*alignment(otherBoids);
-    acceleration += 30.0 * sharkSeperation(sharks);
-    acceleration += 10.0 * sharkAlignment(sharks);
+//    acceleration += 30.0 * sharkSeperation(sharks);
+//    acceleration += 10.0 * sharkAlignment(sharks);
 
     velocity += acceleration;
     velocity.limit(maxSpeed);

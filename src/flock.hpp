@@ -39,6 +39,13 @@ public:
     
     ofxFloatSlider maxSpeed;
     ofxFloatSlider maxForce;
+    
+    ofxFloatSlider radius;
+    ofxFloatSlider red;
+    ofxFloatSlider green;
+    ofxFloatSlider blue;
+    ofxFloatSlider alpha;
+    ofxFloatSlider colorRandomization;
 
     ofxPanel gui;
     
@@ -49,6 +56,13 @@ public:
     void neighbourhoodSizeChanged(float &neighbourhoodSize);
     void maxSpeedChanged(float &maxSpeed);
     void maxForceChanged(float &maxForce);
+    
+    void radiusChanged(float &radius);
+    void redChanged(float &red);
+    void greenChanged(float &green);
+    void blueChanged(float &blue);
+    void alphaChanged(float &alpha);
+    void colorRandomizationChanged(float &colorRandomization);
 };
 
 #endif /* flock_hpp */

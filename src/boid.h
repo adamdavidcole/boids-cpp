@@ -35,6 +35,7 @@ public:
 	ofVec3f alignment(std::vector<Boid *> &otherBoids);
     
     ofColor color;
+    float radius = 3;
 
 // all the methods and variables after the
 // public keyword can only be used by anyone
@@ -50,7 +51,13 @@ public:
     static constexpr float INITIAL_SEPARATION_THRESHOLD = 50;
     static constexpr float INITIAL_NEIGHBORHOOD_SIZE = 100;
     static constexpr float INITIAL_MAX_FORCE = 1;
-    static constexpr float INITIAL_MAX_SPEED = 4.75;
+    static constexpr float INITIAL_MAX_SPEED = 2.5;
+    static constexpr float INITIAL_RADIUS = 1;
+    static constexpr float INITIAL_RED = 255;
+    static constexpr float INITIAL_GREEN = 30;
+    static constexpr float INITIAL_BLUE = 155;
+    static constexpr float INITIAL_ALPHA = 137;
+    static constexpr float INITIAL_COLOR_RANDOMIZATION = 0;
 	
 	ofVec3f getPosition();
 	ofVec3f getVelocity();
@@ -74,6 +81,7 @@ public:
     void setMaxForce(float f);
     
     void setColor(ofColor color);
+    void setRadius(float radius);
 	
 	void update(std::vector<Boid *> &otherBoids, ofVec3f &min, ofVec3f &max);
     void update(std::vector<Flock *> &otherFlocks, ofVec3f &min, ofVec3f &max);

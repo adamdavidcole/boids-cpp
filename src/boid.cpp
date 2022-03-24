@@ -124,6 +124,10 @@ void Boid::setColor(ofColor c) {
     color = c;
 }
 
+void Boid::setRadius(float r) {
+    radius = r;
+}
+
 ofVec3f Boid::getPosition()
 {
 	return position;
@@ -312,5 +316,5 @@ void Boid::walls(ofVec3f &min, ofVec3f &max)
 void Boid::draw()
 {
 	ofSetColor(color);
-	ofCircle(position.x, position.y, 5);
+	ofDrawCircle(position.x, position.y, radius);
 }

@@ -37,6 +37,17 @@ public:
     static const int INITIAL_BOID_COUNT = 250;
     
     ofEasyCam cam; // add mouse controls for camera movement
+    
+
+    ofImage             img;
+    
+    float backgroundAlphaVal = 10;
+    ofxPanel gui;
+    ofxFloatSlider backgroundAlpha;
+    void backgroundAlphaChanged(float &backgroundAlpha);
+    
+    bool shouldClear = false;
+
 };
 
 #endif	

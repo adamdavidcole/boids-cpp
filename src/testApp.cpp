@@ -6,12 +6,16 @@ testApp::testApp() {
     std::vector<Boid *> fishes;
     std::vector<Boid *> sharks;
     
-    for (int i = 0; i < 500; i++) {
-        Fish* fish = new Fish(ofColor(180, 20, 10));
+    
+    int fishCount = 250;
+    for (int i = 0; i < fishCount; i++) {
+        Fish* fish = new Fish(ofColor(Fish::INITIAL_RED, Fish::INITIAL_GREEN, Fish::INITIAL_BLUE));
         fishes.push_back(fish);
     }
     
-    for (int i = 0; i < 5; i++) {
+//    int sharkCount = 5;
+    int sharkCount = 5;
+    for (int i = 0; i < sharkCount; i++) {
         Shark* shark = new Shark(ofColor(20, 100, 200));
         sharks.push_back(shark);
     }
@@ -70,6 +74,12 @@ void testApp::setup(){
     }
     
    // cam.setPosition(0, 0, -1000);
+    
+    backgroundAlpha.addListener(this, &testApp::backgroundAlphaChanged);
+    
+    gui.setup();
+    gui.add(backgroundAlpha.setup("background alpha", 10, 0, 255));
+
 }
 
 
@@ -77,7 +87,7 @@ void testApp::setup(){
 void testApp::update() {
 //    ((Flock*)fishFlock)->update();
     fishFlock->update(sharkFlock->boids);
-    sharkFlock->update(fishFlock->boids);
+//    sharkFlock->update(fishFlock->boids);
     
 //    fishFlock->updateSharks(sharkFlock->boids);
     
@@ -94,8 +104,16 @@ void testApp::update() {
 
 //--------------------------------------------------------------
 void testApp::draw() {
+    if (shouldClear) {
+        ofClear(0,255);
+
+        shouldClear = false;
+        
+        cout << "CLLEArR" << endl;
+    }
+    
     ofEnableBlendMode(OF_BLENDMODE_SUBTRACT);
-    ofSetColor(ofColor(15, 15, 15, 10));
+    ofSetColor(ofColor(15, 15, 15, backgroundAlphaVal));
     ofRect(0, 0, ofGetWidth(), ofGetHeight());
 
     
@@ -128,7 +146,7 @@ void testApp::draw() {
     ofEnableBlendMode(OF_BLENDMODE_ADD);
 //
     fishFlock->draw();
-    sharkFlock->draw();
+//    sharkFlock->draw();
     
     ofDisableBlendMode();
 
@@ -139,6 +157,7 @@ void testApp::draw() {
     
     
     fishFlock->drawGui();
+    gui.draw();
     sharkFlock->drawGui();
 
     
@@ -149,7 +168,18 @@ void testApp::draw() {
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
- 
+    if (key == ' ') {
+        img.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
+        
+        string fileName = "snapshot_"+ofGetTimestampString()+".png";
+        img.save(fileName);
+        
+        std::cout << "Saved image: " << fileName << std::endl;
+    }
+    
+    if (key == 'c') {
+        shouldClear = true;
+    }
 }
 
 //--------------------------------------------------------------
@@ -180,4 +210,9 @@ void testApp::mouseReleased(int x, int y, int button){
 //--------------------------------------------------------------
 void testApp::windowResized(int w, int h){
     
+}
+
+//--------------------------------------------------------------
+void testApp::backgroundAlphaChanged(float &bAlpha) {
+    backgroundAlphaVal = bAlpha;
 }

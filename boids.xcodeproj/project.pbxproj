@@ -619,8 +619,8 @@
 			isa = PBXGroup;
 			children = (
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
-				8FACA27F2D69E93F636D7E8C /* boid.h */,
 				82C7AF4D5BCBFA3B653AE791 /* boid.cpp */,
+				8FACA27F2D69E93F636D7E8C /* boid.h */,
 				B87AF0FA27AB5AB800181695 /* fish.cpp */,
 				B87AF0FB27AB5AB800181695 /* fish.hpp */,
 				B87AF0FD27AB6D4A00181695 /* shark.cpp */,
